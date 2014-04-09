@@ -45,3 +45,12 @@ class Vehicle(db.Model, ModelUtils):
 	status = db.Column(db.String(255))
 	notes = db.Column(db.Text)
 
+	def __dict__(self):
+		return {
+			'vin': self.vin,
+			'make': self.make,
+			'model': self.model,
+			'color': self.color,
+			'status': self.status,
+			'notes': self.notes,
+		}
