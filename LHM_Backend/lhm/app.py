@@ -59,7 +59,7 @@ def get_vehicles():
 	return jsonify(vehicle=dict(vehicle))
 
 
-@app.route('/vehicle/<str:vin>', methods=['GET', 'POST'])
+@app.route('/vehicle/<string:vin>', methods=['GET', 'POST'])
 @requires_auth
 def get_vehicle(vin):
 	vehicle = models.Vehicle.query.filter_by(vin=vin).first()
