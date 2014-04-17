@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="main_menu">
+	   <item>Location</item>
+	   <item>Inventory</item>
+	   <item>Tent sales</item>
+	   <item>Scan</item>
+	   <item>Status</item>
+	   <item>Add</item>
+	   <item>Remove</item>
+  </string-array>
+</resources>

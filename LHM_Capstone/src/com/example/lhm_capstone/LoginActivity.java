@@ -4,10 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
@@ -81,7 +83,8 @@ public class LoginActivity extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						attemptLogin();
+						//attemptLogin();
+						byPassLogin();
 					}
 				});
 	}
@@ -91,6 +94,16 @@ public class LoginActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 		getMenuInflater().inflate(R.menu.login, menu);
 		return true;
+	}
+	
+	/*
+	 * A dummy login function to bypass entering user credentials to test
+	 * the next screen.
+	 */
+	public void byPassLogin() {
+		Log.d("bypass", "bypassing login");
+		Intent intent = new Intent(this, RootActivity.class);
+		startActivity(intent);
 	}
 
 	/**
