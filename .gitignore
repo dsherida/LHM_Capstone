@@ -1,5 +1,5 @@
 *.pydevproject
-.metadata
+.metadata/
 tmp/
 *.tmp
 *.bak
