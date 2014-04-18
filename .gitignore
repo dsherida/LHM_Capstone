@@ -1,5 +1,6 @@
 *.pydevproject
 .metadata/
+.metadata/.plugins/
 tmp/
 *.tmp
 *.bak
