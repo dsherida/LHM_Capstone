@@ -1,5 +1,16 @@
 import lhm
 from lhm import models
+
+from lhm.config import *
+
+lhm.app.config.update(dict(
+	SQLALCHEMY_DATABASE_URI=DATABASE_URL,
+	DEBUG=False,
+	SECRET_KEY=SECRET_KEY,
+))
+
+
+models.db.init_app(lhm.app)
 new = models.User()
 
 p = "helloworld"

@@ -1,8 +1,7 @@
 from flask.ext.sqlalchemy import SQLAlchemy
 from passlib.hash import bcrypt
-from app import app
 
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
 
 class ModelUtils:
