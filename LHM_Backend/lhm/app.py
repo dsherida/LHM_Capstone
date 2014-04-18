@@ -22,7 +22,7 @@ def create_user():
 	new.set_password(password)
 	new.put()
 
-	return jsonify(user=dict(user))
+	return jsonify(user=user.to_json())
 
 
 @app.route('/user/<int:id>', methods=['POST'])
@@ -38,7 +38,7 @@ def update_user(id):
 		user.set_password(password)
 	user.put()
 
-	return jsonify(user=dict(user))
+	return jsonify(user=user.to_json())
 
 
 # Vehicle Data Handlers
@@ -47,7 +47,7 @@ def update_user(id):
 def get_vehicles():
 	if request.method == 'GET':
 		vehicles = models.Vehicle.query.all()
-		return jsonify(vehicles=[dict(v) for v in vehicles])
+		return jsonify(vehicles=[v.to_json() for v in vehicles])
 
 	vehicle = models.Vehicle()
 	vehicle.status = request.form.get('status')
@@ -56,7 +56,7 @@ def get_vehicles():
 	vehicle.color = request.form.get('color')
 	vehicle.notes = request.form.get('notes')
 	vehicle.put()
-	return jsonify(vehicle=dict(vehicle))
+	return jsonify(vehicle=vehicle.to_json())
 
 
 @app.route('/vehicle/<string:vin>', methods=['GET', 'POST'])
@@ -70,5 +70,5 @@ def get_vehicle(vin):
 		vehicle.color = request.form.get('color') or vehicle.color
 		vehicle.notes = request.form.get('notes') or vehicle.notes
 		vehicle.put()
-	return jsonify(vehicle=dict(vehicle))
+	return jsonify(vehicle=vehicle.to_json())
 

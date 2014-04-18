@@ -23,7 +23,7 @@ class User(db.Model, ModelUtils):
 	password = db.Column(db.String(255))
 	notes = db.Column(db.Text)
 
-	def __dict__(self):
+	def to_json(self):
 		return {
 			'email': self.email,
 			'notes': self.notes,
@@ -45,7 +45,7 @@ class Vehicle(db.Model, ModelUtils):
 	status = db.Column(db.String(255))
 	notes = db.Column(db.Text)
 
-	def __dict__(self):
+	def to_json(self):
 		return {
 			'vin': self.vin,
 			'make': self.make,
