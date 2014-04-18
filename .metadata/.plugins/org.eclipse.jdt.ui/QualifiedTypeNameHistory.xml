@@ -7,4 +7,8 @@
 <fullyQualifiedTypeName name="com.example.lhm_capstone.R.id"/>
 <fullyQualifiedTypeName name="com.example.lhm_capstone.R.layout"/>
 <fullyQualifiedTypeName name="android.widget.AdapterView"/>
+<fullyQualifiedTypeName name="com.example.lhm_capstone.EnterVINFragment.OnFragmentInteractionListener"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.support.v4.app.ActionBarDrawerToggle"/>
+<fullyQualifiedTypeName name="android.content.res.Configuration"/>
 </qualifiedTypeNameHistroy>
