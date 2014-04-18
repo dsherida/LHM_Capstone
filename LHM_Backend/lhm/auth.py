@@ -31,7 +31,7 @@ def requires_auth(f):
 			email, passw = request.args.get('email'), request.args.get('password')
 		else:
 			email, passw = request.form.get('email'), request.form.get('password')
-		if not (email and password and check_auth(email, password)):
+		if not (email and passw and check_auth(email, passw)):
 			auth = request.authorization
 			if not auth or not check_auth(auth.username, auth.password):
 				return authenticate()
