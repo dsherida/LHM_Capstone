@@ -1,5 +1,5 @@
 from functools import wraps
-from flask import request, Response
+from flask import request, Response, session
 from models import User
 
 
@@ -8,7 +8,11 @@ def check_auth(username, password):
 	password combination is valid.
 	"""
 	u = User.query.filter_by(email=username).first()
-	return u and u.verify_password(password)
+	v = u and u.verify_password(password)
+	if v:
+		session['email'] = username
+		session['password'] = password
+	return v
 
 def authenticate():
 	"""Sends a 401 response that enables basic auth"""
@@ -20,8 +24,16 @@ def authenticate():
 def requires_auth(f):
 	@wraps(f)
 	def decorated(*args, **kwargs):
-		auth = request.authorization
-		if not auth or not check_auth(auth.username, auth.password):
-			return authenticate()
+		email, passw = session.get('email'), session.get('password')
+		if email and passw:
+			return f(*args, **kwargs)
+		if request.method == 'GET':
+			email, passw = request.args.get('email'), request.args.get('password')
+		else:
+			email, passw = request.form.get('email'), request.form.get('password')
+		if not (email and password and check_auth(email, password)):
+			auth = request.authorization
+			if not auth or not check_auth(auth.username, auth.password):
+				return authenticate()
 		return f(*args, **kwargs)
 	return decorated
