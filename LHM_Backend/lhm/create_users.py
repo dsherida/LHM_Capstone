@@ -3,6 +3,8 @@ from lhm import models
 
 from lhm.config import *
 
+lhm.app.test_request_context().push()
+
 lhm.app.config.update(dict(
 	SQLALCHEMY_DATABASE_URI=DATABASE_URL,
 	DEBUG=False,
