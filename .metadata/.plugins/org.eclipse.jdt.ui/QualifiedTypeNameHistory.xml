@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="android.content.Intent"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.widget.ListView"/>
+<fullyQualifiedTypeName name="com.example.lhm_capstone.R.array"/>
+<fullyQualifiedTypeName name="com.example.lhm_capstone.R.id"/>
+<fullyQualifiedTypeName name="com.example.lhm_capstone.R.layout"/>
+<fullyQualifiedTypeName name="android.widget.AdapterView"/>
+<fullyQualifiedTypeName name="com.example.lhm_capstone.EnterVINFragment.OnFragmentInteractionListener"/>
+<fullyQualifiedTypeName name="android.widget.Toast"/>
+<fullyQualifiedTypeName name="android.support.v4.app.ActionBarDrawerToggle"/>
+<fullyQualifiedTypeName name="android.content.res.Configuration"/>
+</qualifiedTypeNameHistroy>
