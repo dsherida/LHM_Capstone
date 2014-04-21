@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="next_activity_title">Success!</string>
+    <string name="next_activity_result_text">Vehicle was added</string>
+    <string name="next_activity_options_title">How do you want to proceed?</string>
+    <string name="next_activity_option1_title">Another Asset</string>
+    <string name="next_activity_option2_title">Back to Main Menu</string>
+    <string name="next_activity_option3_title">Back to Tent Sales</string>
+    
+    <string name="action_next_activity_option1">AnotheAsset</string>
+    <string name="action_next_activity_option2">BackToMainMenu</string>
+    <string name="action_next_activity_option3">BackToTentSales</string>
+    
+    
+</resources>
