@@ -8,5 +8,37 @@
 	   <item>Status</item>
 	   <item>Add</item>
 	   <item>Remove</item>
-  </string-array>
+  	</string-array>
+  	
+    <string-array name="state_array">
+	   <item>Arizona</item>
+	   <item>California</item>
+  	</string-array>
+  	
+    <string-array name="city_array">
+	   <item>Mesa</item>
+	   <item>Peoria</item>
+  	</string-array>
+  	
+    <string-array name="dealership_array">
+	   <item>Dealership####</item>
+	   <item>Dealership#####</item>
+  	</string-array>
+  	
+    <string-array name="make_array">
+	   <item>Ford</item>
+	   <item>Mazda</item>
+	   <item>Subaru</item>
+  	</string-array>
+  	
+    <string-array name="model_array">
+	   <item>Impreza</item>
+	   <item>Focus</item>
+  	</string-array>
+  	
+    <string-array name="location_array">
+	   <item>Dealership##</item>
+	   <item>Dealership###</item>
+  	</string-array>
+  	
 </resources>

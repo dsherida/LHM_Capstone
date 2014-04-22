@@ -116,7 +116,6 @@ public class EnterVINFragment extends Fragment implements android.view.View.OnCl
 	 * >Communicating with Other Fragments</a> for more information.
 	 */
 	public interface OnGoButtonClickedListener {
-		// TODO: Update argument type and name
 		public void goButtonClicked();
 	}
 	
