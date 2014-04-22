@@ -1,34 +1,31 @@
 package com.example.lhm_capstone;
 
-import com.example.lhm_capstone.EnterVINFragment.OnFragmentInteractionListener;
-
-import android.app.Activity;
+import com.example.lhm_capstone.EnterVINFragment.OnGoButtonClickedListener;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class RootActivity extends Activity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
-        EnterVINFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, 
+        EnterVINFragment.OnGoButtonClickedListener,
+        NextActivityFragment.NextActivityFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -57,7 +54,25 @@ public class RootActivity extends Activity
      */
     private void selectItem(int position){
     	// Create a new fragment and specify the menu item to show based on position
-    	Fragment fragment = new EnterVINFragment();
+    	Fragment fragment = null;
+    	switch(position) {
+    		case 0: fragment = new EnterVINFragment();
+    				break;
+    		case 1:	fragment = new EnterVINFragment();
+    				break;
+    		case 2: fragment = new EnterVINFragment();
+    				break;
+    		case 3: fragment = new EnterVINFragment();
+    				break;
+    		case 4: fragment = new EnterVINFragment();
+    				break;
+    		case 5: fragment = new EnterVINFragment();
+    				break;
+    		case 6: fragment = new EnterVINFragment();
+    				break;
+			default: fragment = new EnterVINFragment();
+					break;
+    	}
     	
     	// Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
@@ -71,10 +86,25 @@ public class RootActivity extends Activity
         mDrawerLayout.closeDrawer(mDrawerList);
     }
     
-    @Override
-    public void onFragmentInteraction(Uri uri) { 
+    public void goButtonClicked() { 
     	Toast toast = Toast.makeText(this, "Wheeee!",Toast.LENGTH_SHORT); 
-    	toast.show(); 
+    	toast.show();
+    	
+    	Fragment fragment = new NextActivityFragment();
+    	FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                       .replace(R.id.content_frame, fragment)
+                       .addToBackStack(null)
+                       .commit();
+    	
+    	/*
+    	Fragment fragment = new NextActivityFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+   
+        ft.replace(R.id.content_frame, fragment);
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.addToBackStack(null);
+        ft.commit();*/
     }
     
     @Override
@@ -212,6 +242,18 @@ public class RootActivity extends Activity
         }
         return super.onOptionsItemSelected(item);
     }
+    
+    /*
+    public void goClicked(View v){
+    	Fragment fragment = new NextActivityFragment();
+    	
+    	// Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                       .replace(R.id.content_frame, fragment)
+                       .commit();
+    }
+    */
 
     /**
      * A placeholder fragment containing a simple view.
@@ -254,5 +296,11 @@ public class RootActivity extends Activity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
+
+	@Override
+	public void onFragmentInteraction(Uri uri) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

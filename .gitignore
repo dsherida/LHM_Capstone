@@ -1,6 +1,12 @@
 *.pydevproject
 .metadata/
 .metadata/.plugins/
+.metadata/.plugins/org.eclipse.core.resources/
+.metadata/.plugins/org.eclipse.core.resources/.projects/
+.metadata/.plugins/org.eclipse.e4.workbench/
+.metadata/.plugins/org.eclipse.jdt.core/
+.metadata/.plugins/org.eclipse.jdt.ui/
+.metadata/.plugins/org.eclipse.debug.core/
 tmp/
 *.tmp
 *.bak

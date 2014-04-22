@@ -1,12 +1,18 @@
 package com.example.lhm_capstone;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
+import android.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
@@ -16,7 +22,7 @@ import android.view.ViewGroup;
  * method to create an instance of this fragment.
  * 
  */
-public class EnterVINFragment extends Fragment {
+public class EnterVINFragment extends Fragment implements android.view.View.OnClickListener {
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
@@ -26,7 +32,9 @@ public class EnterVINFragment extends Fragment {
 	private String mParam1;
 	private String mParam2;
 
-	private OnFragmentInteractionListener mListener;
+	OnGoButtonClickedListener mListener;
+	
+	Button goButton;
 
 	/**
 	 * Use this factory method to create a new instance of this fragment using
@@ -64,25 +72,31 @@ public class EnterVINFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		// Set onClickListener to the go_button
+		View view = inflater.inflate(R.layout.fragment_enter_vin, container, false);
+		goButton = (Button) view.findViewById(R.id.go_button);
+		goButton.setOnClickListener(this);
+		
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_enter_vin, container, false);
+		return view;
 	}
 
+	/*
 	// TODO: Rename method, update argument and hook method into UI event
 	public void onButtonPressed(Uri uri) {
 		if (mListener != null) {
 			mListener.onFragmentInteraction(uri);
 		}
-	}
+	}*/
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
-			mListener = (OnFragmentInteractionListener) activity;
+			mListener = (OnGoButtonClickedListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
-					+ " must implement OnFragmentInteractionListener");
+					+ " must implement OnGoButtonClickedListener");
 		}
 	}
 
@@ -101,9 +115,14 @@ public class EnterVINFragment extends Fragment {
 	 * "http://developer.android.com/training/basics/fragments/communicating.html"
 	 * >Communicating with Other Fragments</a> for more information.
 	 */
-	public interface OnFragmentInteractionListener {
+	public interface OnGoButtonClickedListener {
 		// TODO: Update argument type and name
-		public void onFragmentInteraction(Uri uri);
+		public void goButtonClicked();
 	}
-
+	
+	@Override
+    public void onClick(View v) {
+        Toast.makeText(this.getActivity(), "Searching for vehicle...", Toast.LENGTH_LONG).show();
+        mListener.goButtonClicked();
+    }
 }
