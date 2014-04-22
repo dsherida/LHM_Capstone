@@ -25,7 +25,11 @@ import android.widget.Toast;
 public class RootActivity extends Activity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, 
         EnterVINFragment.OnGoButtonClickedListener,
-        NextActivityFragment.NextActivityFragmentInteractionListener {
+        NextActivityFragment.NextActivityFragmentInteractionListener,
+        AssetDetailsFragment.AssetDetailsFragmentInteractionListener,
+        ChangeLocationFragment.ChangeLocationFragmentInteractionListener,
+        InventorySearchFragment.InventorySearchFragmentInteractionListener,
+        InventoryFragment.InventoryFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -56,18 +60,25 @@ public class RootActivity extends Activity
     	// Create a new fragment and specify the menu item to show based on position
     	Fragment fragment = null;
     	switch(position) {
-    		case 0: fragment = new EnterVINFragment();
+    		// Location
+    		case 0: fragment = new ChangeLocationFragment();
     				break;
-    		case 1:	fragment = new EnterVINFragment();
+    		// Inventory
+    		case 1:	fragment = new InventorySearchFragment();
     				break;
+    		// Tent sales
     		case 2: fragment = new EnterVINFragment();
     				break;
+    		// Scan
     		case 3: fragment = new EnterVINFragment();
     				break;
+    		// Status
     		case 4: fragment = new EnterVINFragment();
     				break;
+    		// Add
     		case 5: fragment = new EnterVINFragment();
     				break;
+    		// Remove
     		case 6: fragment = new EnterVINFragment();
     				break;
 			default: fragment = new EnterVINFragment();
@@ -90,21 +101,33 @@ public class RootActivity extends Activity
     	Toast toast = Toast.makeText(this, "Wheeee!",Toast.LENGTH_SHORT); 
     	toast.show();
     	
+    	Fragment fragment = new AssetDetailsFragment();
+    	FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                       .replace(R.id.content_frame, fragment)
+                       .addToBackStack(null)
+                       .commit();
+    }
+        
+    public void applyFilterButtonClicked() {
+    	Toast toast = Toast.makeText(this, "Wheeee!",Toast.LENGTH_SHORT); 
+    	toast.show();
+    	
+    	Fragment fragment = new InventoryFragment();
+    	FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                       .replace(R.id.content_frame, fragment)
+                       .addToBackStack(null)
+                       .commit();
+    }
+    
+    public void submitButtonClicked() {
     	Fragment fragment = new NextActivityFragment();
     	FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                        .replace(R.id.content_frame, fragment)
                        .addToBackStack(null)
                        .commit();
-    	
-    	/*
-    	Fragment fragment = new NextActivityFragment();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-   
-        ft.replace(R.id.content_frame, fragment);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.addToBackStack(null);
-        ft.commit();*/
     }
     
     @Override

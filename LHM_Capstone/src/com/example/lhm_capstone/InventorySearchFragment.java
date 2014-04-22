@@ -4,21 +4,22 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
  * contain this fragment must implement the
- * {@link NextActivityFragment.OnFragmentInteractionListener} interface to handle
- * interaction events. Use the {@link NextActivityFragment#newInstance} factory
- * method to create an instance of this fragment.
+ * {@link InventorySearchFragment.OnFragmentInteractionListener} interface to
+ * handle interaction events. Use the
+ * {@link InventorySearchFragment#newInstance} factory method to create an
+ * instance of this fragment.
  * 
  */
-public class NextActivityFragment extends Fragment {
+public class InventorySearchFragment extends Fragment implements android.view.View.OnClickListener {
 	// TODO: Rename parameter arguments, choose names that match
 	// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 	private static final String ARG_PARAM1 = "param1";
@@ -28,8 +29,10 @@ public class NextActivityFragment extends Fragment {
 	private String mParam1;
 	private String mParam2;
 
-	NextActivityFragmentInteractionListener mListener;
-
+	InventorySearchFragmentInteractionListener mListener;
+	
+	Button applyFilterButton;
+	
 	/**
 	 * Use this factory method to create a new instance of this fragment using
 	 * the provided parameters.
@@ -38,11 +41,12 @@ public class NextActivityFragment extends Fragment {
 	 *            Parameter 1.
 	 * @param param2
 	 *            Parameter 2.
-	 * @return A new instance of fragment ScanCarFragment.
+	 * @return A new instance of fragment InventorySearchFragment.
 	 */
 	// TODO: Rename and change types and number of parameters
-	public static NextActivityFragment newInstance(String param1, String param2) {
-		NextActivityFragment fragment = new NextActivityFragment();
+	public static InventorySearchFragment newInstance(String param1,
+			String param2) {
+		InventorySearchFragment fragment = new InventorySearchFragment();
 		Bundle args = new Bundle();
 		args.putString(ARG_PARAM1, param1);
 		args.putString(ARG_PARAM2, param2);
@@ -50,7 +54,7 @@ public class NextActivityFragment extends Fragment {
 		return fragment;
 	}
 
-	public NextActivityFragment() {
+	public InventorySearchFragment() {
 		// Required empty public constructor
 	}
 
@@ -66,25 +70,31 @@ public class NextActivityFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		// Set onClickListener to the go_button
+		View view = inflater.inflate(R.layout.fragment_inventory_search, container, false);
+		applyFilterButton = (Button) view.findViewById(R.id.apply_filter_button);
+		applyFilterButton.setOnClickListener(this);
+		
 		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_next_activity, container, false);
+		return view;
 	}
 
+	/*
 	// TODO: Rename method, update argument and hook method into UI event
 	public void onButtonPressed(Uri uri) {
 		if (mListener != null) {
-			mListener.onFragmentInteraction(uri);
+			mListener.applyFilterButtonClicked(uri);
 		}
-	}
+	}*/
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
-			mListener = (NextActivityFragmentInteractionListener) activity;
+			mListener = (InventorySearchFragmentInteractionListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
-					+ " must implement NextActivityFragmentInteractionListener");
+					+ " must implement InventorySearchFragmentInteractionListener");
 		}
 	}
 
@@ -93,20 +103,6 @@ public class NextActivityFragment extends Fragment {
 		super.onDetach();
 		mListener = null;
 	}
-	
-	public void AnotherAsset(View view){	
-		
-		
-	}
-	
-    public void BackToMainMenu(View view){	
-		
-		
-	}
-    
-    public void BackToTentSales(View view){
-    	
-    }
 
 	/**
 	 * This interface must be implemented by activities that contain this
@@ -117,21 +113,15 @@ public class NextActivityFragment extends Fragment {
 	 * "http://developer.android.com/training/basics/fragments/communicating.html"
 	 * >Communicating with Other Fragments</a> for more information.
 	 */
-	public interface NextActivityFragmentInteractionListener {
-		public void onFragmentInteraction(Uri uri);
+	public interface InventorySearchFragmentInteractionListener {
+		// TODO: Update argument type and name
+		public void applyFilterButtonClicked();
 	}
-	
-	/*
+
 	@Override
-	public void onBackPressed(){
-	    FragmentManager fm = getFragmentManager();
-	    if (fm.getBackStackEntryCount() > 0) {
-	        Log.i("MainActivity", "popping backstack");
-	        fm.popBackStack();
-	    } else {
-	        Log.i("MainActivity", "nothing on backstack, calling super");
-	        super.onBackPressed();  
-	    }
-	}*/
+    public void onClick(View v) {
+        Toast.makeText(this.getActivity(), "Searching for vehicle...", Toast.LENGTH_LONG).show();
+        mListener.applyFilterButtonClicked();
+    }
 
 }
