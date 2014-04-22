@@ -3,7 +3,9 @@ package com.example.lhm_capstone;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +28,7 @@ public class NextActivityFragment extends Fragment {
 	private String mParam1;
 	private String mParam2;
 
-	private OnFragmentInteractionListener mListener;
+	NextActivityFragmentInteractionListener mListener;
 
 	/**
 	 * Use this factory method to create a new instance of this fragment using
@@ -79,10 +81,10 @@ public class NextActivityFragment extends Fragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		try {
-			mListener = (OnFragmentInteractionListener) activity;
+			mListener = (NextActivityFragmentInteractionListener) activity;
 		} catch (ClassCastException e) {
 			throw new ClassCastException(activity.toString()
-					+ " must implement OnFragmentInteractionListener");
+					+ " must implement NextActivityFragmentInteractionListener");
 		}
 	}
 
@@ -115,9 +117,22 @@ public class NextActivityFragment extends Fragment {
 	 * "http://developer.android.com/training/basics/fragments/communicating.html"
 	 * >Communicating with Other Fragments</a> for more information.
 	 */
-	public interface OnFragmentInteractionListener {
+	public interface NextActivityFragmentInteractionListener {
 		// TODO: Update argument type and name
 		public void onFragmentInteraction(Uri uri);
 	}
+	
+	/*
+	@Override
+	public void onBackPressed(){
+	    FragmentManager fm = getFragmentManager();
+	    if (fm.getBackStackEntryCount() > 0) {
+	        Log.i("MainActivity", "popping backstack");
+	        fm.popBackStack();
+	    } else {
+	        Log.i("MainActivity", "nothing on backstack, calling super");
+	        super.onBackPressed();  
+	    }
+	}*/
 
 }
