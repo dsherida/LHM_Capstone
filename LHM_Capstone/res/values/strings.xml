@@ -17,6 +17,20 @@
     <string name="drawer_open">Open drawer</string>
     <string name="drawer_close">Close drawer</string>
     <string name="welcome_text">Welcome to the Larry H. Miller Automotive inventory tracking system.</string>
+    <string-array name="vehicle_status">
+        <item>On-site</item>
+        <item>Test Drive</item>
+        <item>Sold</item>
+        <item>Tent Sale</item>
+    </string-array>
+    <string-array name="action_status">
+        <item>Add</item>
+        <item>Remove</item>
+    </string-array>
+    <string-array name="ok_status">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
     
 
 </resources>
