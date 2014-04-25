@@ -6,67 +6,66 @@
     android:orientation="vertical"
     tools:context=".NextActivityFragment" >
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:columnCount="1"
-        android:orientation="vertical" >
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/next_activity_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="40sp" />
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="fill_parent"
-            android:layout_height="94dp"
-            android:gravity="center"
-            android:text="@string/next_activity_title"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/TextView01"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:gravity="center"
+            android:layout_weight="0.79"
+            android:gravity="right"
             android:text="@string/next_activity_result_text"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/TextView02"
-            android:layout_width="fill_parent"
-            android:layout_height="74dp"
-            android:layout_gravity="left"
-            android:gravity="center"
-            android:text="@string/next_activity_options_title"
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&lt;SomeAction>"
             android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_gravity="fill_horizontal"
-            android:orientation="vertical" >
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/next_activity_options_title"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/another_asset"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="@string/action_next_activity_option1"
-                android:text="@string/next_activity_option1_title" />
+    <Button
+        android:id="@+id/another_asset"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@string/action_next_activity_option1"
+        android:text="@string/next_activity_option1_title" />
 
-            <Button
-                android:id="@+id/main_menu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="@string/action_next_activity_option2"
-                android:text="@string/next_activity_option2_title" />
+    <Button
+        android:id="@+id/main_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@string/action_next_activity_option2"
+        android:text="@string/next_activity_option2_title" />
 
-            <Button
-                android:id="@+id/tent_sales"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="@string/action_next_activity_option3"
-                android:text="@string/next_activity_option3_title" />
-
-        </LinearLayout>
-    </GridLayout>
+    <Button
+        android:id="@+id/tent_sales"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@string/action_next_activity_option3"
+        android:text="@string/next_activity_option3_title" />
 
 </LinearLayout>
