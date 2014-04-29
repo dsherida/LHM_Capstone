@@ -1,0 +1,11 @@
+{% extends "index.html" %}
+
+{% block content %}
+<form method="POST" action="/login">
+	<label for="textinput-1">Email address:</label>
+	<input name="email" id="textinput-1" placeholder="Text input" value="" type="text">
+	<label for="textinput-2">Password:</label>
+	<input name="password" id="textinput-2" placeholder="Text input" value="" type="password">
+	<button type="submit" id="submit-6" class="ui-shadow ui-btn ui-corner-all ui-mini">Sign In &raquo;</button>
+</form>
+{% endblock %}
