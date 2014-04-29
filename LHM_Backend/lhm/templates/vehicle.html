@@ -1,0 +1,39 @@
+{% extends "index.html" %}
+
+{% block content %}
+<form method="POST" action="/view/vehicle">
+	<h2>{{vehicle.vin}}</h2>
+	<input type="hidden" name="vin" value="{{vehicle.vin}}">
+
+	<label for="vehicle-make-input">Vehicle Make:</label>
+	<input name="vin" id="vehicle-make-input" placeholder="Enter vehicle make..." value="{{vehicle.make}}" type="text">
+
+	<label for="vehicle-color-input">Vehicle Color:</label>
+	<select name="color" id="vehicle-color-input">
+		<option value="black">Black</option>
+		<option value="blue">Blue</option>
+		<option value="green">Green></option>
+		<option value="orange">Orange</option>
+		<option value="red">Red</option>
+		<option value="silver">Silver</option>
+		<option value="teal">Teal</option>
+		<option value="orange">Orange</option>
+	</select>
+
+	<label for="vehicle-model-input">Vehicle Model:</label>
+	<input name="model" id="vehicle-model-input" placeholder="Enter vehicle model..." value="{{vehicle.model}}" type="text">
+
+	<label for="vehicle-status-input">Vehicle Status:</label>
+	<select name="status" id="vehicle-status-input">
+		<option value="inventory">In Inventory</option>
+		<option value="testdrive">Test Drive</option>
+		<option value="sold">Sold</option>
+		<option value="tentsale">Tent Sale</option>
+	</select>
+
+	<label for="vehicle-notes-input">Vehicle Notes:</label>
+	<textarea id="vehicle-notes-input" name="notes" rows="4" cols="24" placeholder="Enter notes for this vehicle..."></textarea>
+
+	<button type="submit" id="submit-6" class="ui-shadow ui-btn ui-corner-all ui-mini">Find vehicle &raquo;</button>
+</form>
+{% endblock %}
