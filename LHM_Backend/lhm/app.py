@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, request, session
+from flask import Flask, jsonify, request, session, render_template, redirect
 import models
-from auth import requires_auth
+from jinja2 import TemplateNotFound
+from auth import requires_auth, check_auth
 
 app = Flask(__name__)
 models.db.init_app(app)
@@ -8,6 +9,23 @@ models.db.init_app(app)
 
 # User Management Handlers
 # TODO: Secure User Management Handlers with Admin Authentication
+
+
+@app.route('/', defaults={'page': 'login'})
+@app.route('/<page>')
+def show(page):
+	try:
+		return render_template('%s.html' % page)
+	except TemplateNotFound:
+		abort(404)
+
+
+@app.route('/login', methods=['POST'])
+def login():
+	email = request.form['email']
+	password = request.form['password']
+	check_auth(email, password)
+	return render_template('home.html')
 
 
 @app.route('/user', methods=['POST'])
