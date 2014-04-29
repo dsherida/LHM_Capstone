@@ -1,0 +1,9 @@
+{% extends "index.html" %}
+
+{% block content %}
+<form method="GET" action="/view/vehicle">
+	<label for="textinput-1">Enter VIN:</label>
+	<input name="vin" id="textinput-1" placeholder="######" value="" type="text">
+	<button type="submit" id="submit-6" class="ui-shadow ui-btn ui-corner-all ui-mini">Find vehicle &raquo;</button>
+</form>
+{% endblock %}

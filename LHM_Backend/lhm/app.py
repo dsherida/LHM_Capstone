@@ -28,6 +28,13 @@ def login():
 	return render_template('home.html')
 
 
+@app.route('/view/vehicle', methods=['GET', 'POST'])
+def view_vehicle():
+	vin = request.args['vin']
+	vehicle = models.Vehicle.query.filter_by(vin=vin).first()
+	return render_template('vehicle.html', vehicle=vehicle)
+
+
 @app.route('/user', methods=['POST'])
 def create_user():
 	email = request.form['email']
