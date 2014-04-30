@@ -29,7 +29,8 @@ public class RootActivity extends Activity
         AssetDetailsFragment.AssetDetailsFragmentInteractionListener,
         ChangeLocationFragment.ChangeLocationFragmentInteractionListener,
         InventorySearchFragment.InventorySearchFragmentInteractionListener,
-        InventoryFragment.InventoryFragmentInteractionListener {
+        InventoryFragment.InventoryFragmentInteractionListener,
+        ProceedFragment.ProceedFragmentInteractionListener {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -73,15 +74,15 @@ public class RootActivity extends Activity
     		case 3: fragment = new EnterVINFragment();
     				break;
     		// Status
-    		case 4: fragment = new EnterVINFragment();
+    		case 4: fragment = new ProceedFragment();
     				break;
     		// Add
-    		case 5: fragment = new EnterVINFragment();
+    		case 5: fragment = new ProceedFragment();
     				break;
     		// Remove
-    		case 6: fragment = new EnterVINFragment();
+    		case 6: fragment = new ProceedFragment();
     				break;
-			default: fragment = new EnterVINFragment();
+			default: fragment = new ProceedFragment();
 					break;
     	}
     	
@@ -123,6 +124,15 @@ public class RootActivity extends Activity
     
     public void submitButtonClicked() {
     	Fragment fragment = new NextActivityFragment();
+    	FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                       .replace(R.id.content_frame, fragment)
+                       .addToBackStack(null)
+                       .commit();
+    }
+    
+    public void onEnterVINButtonClicked() {
+    	Fragment fragment = new EnterVINFragment();
     	FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
                        .replace(R.id.content_frame, fragment)
@@ -321,9 +331,14 @@ public class RootActivity extends Activity
     }
 
 	@Override
-	public void onFragmentInteraction(Uri uri) {
+	public void onScanButtonClicked() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	@Override
+	public void onFragmentInteraction(Uri uri) {
+		// TODO Auto-generated method stub
+		
+	}
 }
