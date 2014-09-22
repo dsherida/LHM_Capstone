@@ -70,19 +70,23 @@ def update_user(id):
 @requires_auth
 def search_vehicles():
 	query = models.Vehicle.query
-	status = request.form.get('status')
-	make = request.form.get('make')
-	model = request.form.get('model')
-	color = request.form.get('color')
+	status = request.args.get('status')
+	make = request.args.get('make')
+	model = request.args.get('model')
+	color = request.args.get('color')
+	sort = request.args.get('sort')
 
 	if status:
-		query.filter_by(status=status).order_by(models.Vehicle.status)
+		query.filter_by(status=status)
 	if make:
-		query.filter_by(make=make).order_by(models.Vehicle.make)
+		query.filter_by(make=make)
 	if model:
-		query.filter_by(model=model).order_by(models.Vehicle.model)
+		query.filter_by(model=model)
 	if color:
-		query.filter_by(color=color).order_by(models.Vehicle.color)
+		query.filter_by(color=color)
+
+	if sort:
+		query.order_by(models.Vehicle.__dict__[sort])
 
 	vehicles = query.all()
 
