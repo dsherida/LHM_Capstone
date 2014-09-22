@@ -77,13 +77,13 @@ def search_vehicles():
 	sort = request.args.get('sort')
 
 	if status:
-		query.filter_by(status=status)
+		query = query.filter_by(status=status)
 	if make:
-		query.filter_by(make=make)
+		query = query.filter_by(make=make)
 	if model:
-		query.filter_by(model=model)
+		query = query.filter_by(model=model)
 	if color:
-		query.filter_by(color=color)
+		query = query.filter_by(color=color)
 
 	if sort:
 		query.order_by(models.Vehicle.__dict__[sort])
