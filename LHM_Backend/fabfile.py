@@ -11,6 +11,6 @@ def apt_upgrade():
 def deploy():
 	with cd("/srv/lhm_capstone"):
 		run("git pull")
-		run("/srv/lhm_capstone/LHM_Backend/venv/bin/pip install -r /srv/lhm_capstone/LHM_Backend/requirements.txt")
+		sudo("/srv/lhm_capstone/LHM_Backend/venv/bin/pip install -r /srv/lhm_capstone/LHM_Backend/requirements.txt")
 		run("touch .")
 		sudo("service uwsgi restart")
