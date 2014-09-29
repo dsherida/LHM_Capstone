@@ -66,6 +66,33 @@ def update_user(id):
 	return jsonify(user=user.to_json())
 
 
+@app.route('/search', methods=['GET'])
+@requires_auth
+def search_vehicles():
+	query = models.Vehicle.query
+	status = request.args.get('status')
+	make = request.args.get('make')
+	model = request.args.get('model')
+	color = request.args.get('color')
+	sort = request.args.get('sort')
+
+	if status:
+		query = query.filter_by(status=status)
+	if make:
+		query = query.filter_by(make=make)
+	if model:
+		query = query.filter_by(model=model)
+	if color:
+		query = query.filter_by(color=color)
+
+	if sort:
+		query.order_by(models.Vehicle.__dict__[sort])
+
+	vehicles = query.all()
+
+	return jsonify(vehicles=[v.to_json() for v in vehicles])
+
+
 # Vehicle Data Handlers
 @app.route('/vehicle', methods=['GET', 'POST'])
 @requires_auth
