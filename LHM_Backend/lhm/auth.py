@@ -26,6 +26,7 @@ def authenticate():
 def requires_auth(f):
 	@wraps(f)
 	def decorated(*args, **kwargs):
+		return f(*args, **kwargs)
 		email, passw = session.get('email'), session.get('password')
 		if email and passw:
 			return f(*args, **kwargs)
