@@ -12,6 +12,8 @@ def check_auth(username, password):
 	if v:
 		session['email'] = username
 		session['password'] = password
+	# TEMPORARILY DISABLE AUTH
+	return True # COMMENT OUT THIS LINE
 	return v
 
 def authenticate():
