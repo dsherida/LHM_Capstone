@@ -10,6 +10,12 @@ models.db.init_app(app)
 # User Management Handlers
 # TODO: Secure User Management Handlers with Admin Authentication
 
+@app.before_request
+def extend_form():
+	if request.method == 'GET':
+		request.args.extend(dict(request.get_json()) or {})
+	else:
+		request.form.extend(dict(request.get_json()) or {})
 
 @app.route('/', defaults={'page': 'login'})
 @app.route('/<page>')
