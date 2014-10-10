@@ -7,8 +7,13 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.PopupWindow;
 
 /**
  * A simple {@link android.support.v4.app.Fragment} subclass. Activities that
@@ -30,6 +35,11 @@ public class InventorySearchFragment extends Fragment implements android.view.Vi
 	private String mParam2;
 
 	InventorySearchFragmentInteractionListener mListener;
+	
+	private EditText vinTextfield;
+	LinearLayout layoutOfPopup;
+	PopupWindow popup;
+	TextView popupText;
 	
 	Button applyFilterButton;
 	
@@ -61,10 +71,18 @@ public class InventorySearchFragment extends Fragment implements android.view.Vi
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		//vinTextfield = (EditText) findViewById(R.id.editText1);
+		init();
+		popupInit();
 		if (getArguments() != null) {
 			mParam1 = getArguments().getString(ARG_PARAM1);
 			mParam2 = getArguments().getString(ARG_PARAM2);
 		}
+	}
+
+	private EditText findViewById(int edittext1) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -97,6 +115,22 @@ public class InventorySearchFragment extends Fragment implements android.view.Vi
 					+ " must implement InventorySearchFragmentInteractionListener");
 		}
 	}
+	
+	public void init()
+	{
+		layoutOfPopup = new LinearLayout(null);
+		popupText.setText("invalid VIN");
+		popupText.setPadding(0,  0,  0,  20);
+		layoutOfPopup.setOrientation(1);
+		layoutOfPopup.addView(popupText);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void popupInit()
+	{
+		popup = new PopupWindow(layoutOfPopup, LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+		popup.setContentView(layoutOfPopup);
+	}
 
 	@Override
 	public void onDetach() {
@@ -120,6 +154,18 @@ public class InventorySearchFragment extends Fragment implements android.view.Vi
 
 	@Override
     public void onClick(View v) {
+		if(vinTextfield.getText().toString().length()!=10)
+		{
+			//create pop-up
+			if(v.getId() == R.id.apply_filter_button)
+			{
+				popup.showAsDropDown(applyFilterButton, 0, 0);
+			}
+			else
+			{
+				popup.dismiss();
+			}
+		}
         Toast.makeText(this.getActivity(), "Searching for vehicle...", Toast.LENGTH_LONG).show();
         mListener.applyFilterButtonClicked();
     }
