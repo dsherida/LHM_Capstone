@@ -39,6 +39,7 @@ class User(db.Model, ModelUtils):
 class Vehicle(db.Model, ModelUtils):
 	id = db.Column(db.Integer, primary_key=True)
 	vin = db.Column(db.String(255))
+	image = db.Column(db.String(255))
 	make = db.Column(db.String(255))
 	model = db.Column(db.String(255))
 	color = db.Column(db.String(255))
@@ -53,4 +54,5 @@ class Vehicle(db.Model, ModelUtils):
 			'color': self.color,
 			'status': self.status,
 			'notes': self.notes,
+			'image': self.image,
 		}
