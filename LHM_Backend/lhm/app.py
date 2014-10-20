@@ -142,6 +142,7 @@ def get_vehicle(vin):
 
 @app.route('/updatedata')
 def update_data():
+	models.db.create_all()
 	import os, csv
 	FILE_PATH = os.path.abspath(os.path.dirname(__file__))
 	csvfile = open(os.path.join(FILE_PATH, "../sample_data.csv"))
