@@ -36,6 +36,28 @@ class User(db.Model, ModelUtils):
 		return bcrypt.verify(password, self.password)
 
 
+class Location(db.Model, ModelUtils):
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(255))
+	type = db.Column(db.String(255))
+	zipcode = db.Column(db.String(255))
+	latitude = db.Column(db.Float)
+	longitude = db.Column(db.Float)
+	address = db.Column(db.Text)
+	notes = db.Column(db.Text)
+
+	def to_json(self):
+		return {
+			'name': self.name,
+			'type': self.type,
+			'zipcode': self.zipcode,
+			'latitude': self.latitude,
+			'longitude': self.longitude,
+			'address': self.address,
+			'notes': self.notes,
+		}
+
+
 class Vehicle(db.Model, ModelUtils):
 	id = db.Column(db.Integer, primary_key=True)
 	vin = db.Column(db.String(255))

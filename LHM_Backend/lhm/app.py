@@ -126,6 +126,28 @@ def get_vehicles():
 	return jsonify(vehicle=vehicle.to_json())
 
 
+# Location Data Handlers
+@app.route('/location', methods=['GET', 'POST'])
+@requires_auth
+def get_locations():
+	if request.method == 'GET':
+		locations = models.Location.query.all()
+		return jsonify(locations=[v.to_json() for v in locations])
+
+	location = models.Location()
+	location.name = request.form.get('name')
+	location.type = request.form.get('type')
+	location.zipcode = request.form.get('zipcode')
+	lat = request.form.get('latitude')
+	location.latitude = float(lat) if lat else None
+	long = request.form.get('longitude')
+	location.longitude = float(long) if long else None
+	location.address = request.form.get('address')
+	location.notes = request.form.get('notes')
+	location.put()
+	return jsonify(location=location.to_json())
+
+
 @app.route('/vehicle/<string:vin>', methods=['GET', 'POST'])
 @requires_auth
 def get_vehicle(vin):
