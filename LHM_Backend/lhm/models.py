@@ -42,6 +42,7 @@ class Vehicle(db.Model, ModelUtils):
 	image = db.Column(db.Text)
 	make = db.Column(db.String(255))
 	model = db.Column(db.String(255))
+	year = db.Column(db.String(255))
 	color = db.Column(db.String(255))
 	status = db.Column(db.String(255))
 	notes = db.Column(db.Text)
