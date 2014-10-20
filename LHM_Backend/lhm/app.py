@@ -46,7 +46,7 @@ def create_user():
 	if request.method == 'GET':
 		email = request.args['email']
 		password = request.args['password']
-		u = User.query.filter_by(email=username).first()
+		u = User.query.filter_by(email=email).first()
 		if u.verify_password(password):
 			return jsonify(user=u.to_json())
 		else:
