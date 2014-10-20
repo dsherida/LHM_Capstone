@@ -62,7 +62,7 @@ def create_user():
 	new.set_password(password)
 	new.put()
 
-	return jsonify(user=user.to_json())
+	return jsonify(user=new.to_json())
 
 
 @app.route('/user/<int:id>', methods=['POST'])
