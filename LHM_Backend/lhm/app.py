@@ -41,11 +41,20 @@ def view_vehicle():
 	return render_template('vehicle.html', vehicle=vehicle)
 
 
-@app.route('/user', methods=['POST'])
+@app.route('/user', methods=['POST', 'GET'])
 def create_user():
+	if request.method == 'GET':
+		email = request.args['email']
+		password = request.args['password']
+		u = User.query.filter_by(email=username).first()
+		if u.verify_password(password):
+			return jsonify(user=user.to_json())
+		else:
+			return jsonify(user=None)
+
 	email = request.form['email']
 	password = request.form['password']
-	notes = request.form['notes']
+	notes = request.form.get('notes')
 
 	new = models.User()
 	new.email = email
