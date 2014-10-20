@@ -53,6 +53,7 @@ class Vehicle(db.Model, ModelUtils):
 			'make': self.make,
 			'model': self.model,
 			'color': self.color,
+			'year': self.year,
 			'status': self.status,
 			'notes': self.notes,
 			'image': self.image or "https://asu-websvr.lhmauto.com/static/car.jpg",
