@@ -130,3 +130,24 @@ def get_vehicle(vin):
 		vehicle.put()
 	return jsonify(vehicle=vehicle.to_json())
 
+
+@app.route('/updatedata')
+def update_data():
+	import os, csv
+	FILE_PATH = os.path.abspath(os.path.dirname(__file__))
+	csvfile = open(os.path.join(FILE_PATH, "../sample_data.csv"))
+	csvreader = csv.reader(csvfile)
+	vehicles = models.Vehicle.query.all()
+	for v in vehicles:
+		models.db.session.delete(v)
+	for row in csvreader:
+		v = models.Vehicle()
+		v.year = row[0]
+		v.vin = row[1]
+		v.make = row[2]
+		v.model = row[3]
+		v.color = row[4]
+		v.status = row[5]
+		models.db.session.add(v)
+	models.db.session.commit()
+	return "All sample data up to date!"
