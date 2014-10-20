@@ -48,7 +48,7 @@ def create_user():
 		password = request.args['password']
 		u = User.query.filter_by(email=username).first()
 		if u.verify_password(password):
-			return jsonify(user=user.to_json())
+			return jsonify(user=u.to_json())
 		else:
 			return jsonify(user=None)
 
