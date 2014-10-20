@@ -140,7 +140,11 @@ def update_data():
 	vehicles = models.Vehicle.query.all()
 	for v in vehicles:
 		models.db.session.delete(v)
+	first = True
 	for row in csvreader:
+		if first:
+			first = False
+			continue
 		v = models.Vehicle()
 		v.year = row[0]
 		v.vin = row[1]
