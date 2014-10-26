@@ -60,6 +60,11 @@ def create_user():
 	new.email = email
 	new.notes = notes
 	new.set_password(password)
+	new.name = request.form.get('name')
+	new.image_url = request.form.get('image_url')
+	new.latitude = request.form.get('latitude')
+	new.longitude = request.form.get('longitude')
+
 	new.put()
 
 	return jsonify(user=new.to_json())

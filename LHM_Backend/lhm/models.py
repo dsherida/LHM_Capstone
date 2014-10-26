@@ -19,6 +19,10 @@ class ModelUtils:
 
 class User(db.Model, ModelUtils):
 	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(255), unique=True)
+	image_url = db.Column(db.String(255), unique=True)
+	latitude = db.Column(db.Float)
+	longitude = db.Column(db.Float)
 	email = db.Column(db.String(255), unique=True)
 	password = db.Column(db.String(255))
 	notes = db.Column(db.Text)
@@ -27,6 +31,10 @@ class User(db.Model, ModelUtils):
 		return {
 			'email': self.email,
 			'notes': self.notes,
+			'name': self.name,
+			'image_url': self.image_url,
+			'latitude': self.latitude,
+			'longitude': self.longitude,
 		}
 
 	def set_password(self, password):
