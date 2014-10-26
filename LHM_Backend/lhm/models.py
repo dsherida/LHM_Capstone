@@ -19,8 +19,8 @@ class ModelUtils:
 
 class User(db.Model, ModelUtils):
 	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(255), unique=True)
-	image_url = db.Column(db.String(255), unique=True)
+	name = db.Column(db.String(255))
+	image_url = db.Column(db.String(255))
 	latitude = db.Column(db.Float)
 	longitude = db.Column(db.Float)
 	email = db.Column(db.String(255), unique=True)
