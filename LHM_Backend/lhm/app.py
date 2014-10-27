@@ -56,7 +56,7 @@ def view_colors():
 	return jsonify(colors=list(set([v.color for v in vehicles])))
 
 @app.route('/years')
-def view_colors():
+def view_years():
 	vehicles = models.Vehicle.query.all()
 	return jsonify(years=list(set([v.year for v in vehicles])))
 
