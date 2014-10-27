@@ -40,6 +40,25 @@ def view_vehicle():
 	vehicle = models.Vehicle.query.filter_by(vin=vin).first()
 	return render_template('vehicle.html', vehicle=vehicle)
 
+@app.route('/makes')
+def view_makes():
+	vehicles = models.Vehicle.query.all()
+	return jsonify(makes=list(set([v.make for v in vehicles])))
+
+@app.route('/models')
+def view_models():
+	vehicles = models.Vehicle.query.all()
+	return jsonify(models=list(set([v.model for v in vehicles])))
+
+@app.route('/colors')
+def view_colors():
+	vehicles = models.Vehicle.query.all()
+	return jsonify(colors=list(set([v.color for v in vehicles])))
+
+@app.route('/years')
+def view_colors():
+	vehicles = models.Vehicle.query.all()
+	return jsonify(years=list(set([v.year for v in vehicles])))
 
 @app.route('/user', methods=['POST', 'GET'])
 def create_user():
