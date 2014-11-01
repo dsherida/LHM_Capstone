@@ -86,5 +86,5 @@ class Vehicle(db.Model, ModelUtils):
 			'year': self.year,
 			'status': self.status,
 			'notes': self.notes,
-			'image': self.image or "https://asu-websvr.lhmauto.com/static/car.jpg",
+			'image': self.image or "http://lorempixel.com/640/480/transport/",
 		}
