@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, session, render_template, redirect
+from flask import Flask, jsonify, request, session, render_template, redirect, abort
 import models
 from jinja2 import TemplateNotFound
 from auth import requires_auth, check_auth
@@ -176,6 +176,10 @@ def get_locations():
 @requires_auth
 def get_vehicle(vin):
 	vehicle = models.Vehicle.query.filter_by(vin=vin).first()
+	if not vehicle:
+		vehicle = models.Vehicle.query.filter_by(stock_num=vin).first()
+	if not vehicle:
+		abort(404)
 	if request.method == 'POST':
 		vehicle.status = request.form.get('status') or vehicle.status
 		vehicle.make = request.form.get('make') or vehicle.make

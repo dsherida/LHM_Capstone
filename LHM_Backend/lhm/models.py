@@ -69,6 +69,7 @@ class Location(db.Model, ModelUtils):
 class Vehicle(db.Model, ModelUtils):
 	id = db.Column(db.Integer, primary_key=True)
 	vin = db.Column(db.String(255))
+	stock_num = db.Column(db.String(255))
 	image = db.Column(db.Text)
 	make = db.Column(db.String(255))
 	model = db.Column(db.String(255))
