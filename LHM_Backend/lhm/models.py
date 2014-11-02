@@ -34,6 +34,7 @@ class User(db.Model, ModelUtils):
 
 	def to_json(self):
 		return {
+			'id': self.id,
 			'email': self.email,
 			'notes': self.notes,
 			'name': self.name,
@@ -66,6 +67,7 @@ class Location(db.Model, ModelUtils):
 
 	def to_json(self):
 		return {
+			'id': self.id,
 			'name': self.name,
 			'type': self.type,
 			'zipcode': self.zipcode,
@@ -92,6 +94,7 @@ class Vehicle(db.Model, ModelUtils):
 
 	def to_json(self):
 		return {
+			'id': self.id,
 			'vin': self.vin,
 			'make': self.make,
 			'model': self.model,
