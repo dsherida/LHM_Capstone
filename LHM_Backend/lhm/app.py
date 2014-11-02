@@ -89,13 +89,17 @@ def view_years():
 @app.route('/user', methods=['POST', 'GET'])
 def create_user():
 	if request.method == 'GET':
-		email = request.args['email']
-		password = request.args['password']
-		u = models.User.query.filter_by(email=email).first()
-		if u and u.verify_password(password):
-			return jsonify(user=u.to_json())
+		email = request.args.get('email')
+		if email:
+			password = request.args['password']
+			u = models.User.query.filter_by(email=email).first()
+			if u and u.verify_password(password):
+				return jsonify(user=u.to_json())
+			else:
+				return jsonify(user=None)
 		else:
-			return jsonify(user=None)
+			users = models.User.query.all()
+			return jsonify(users=[u.to_json() for u in users])
 
 	email = request.form['email']
 	password = request.form['password']
