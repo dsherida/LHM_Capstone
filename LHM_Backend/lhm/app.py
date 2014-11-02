@@ -233,8 +233,11 @@ def update_data():
 			l.name = row[0]
 			l.type = row[1]
 			l.zipcode = row[2]
-			l.latitude = float(row[3])
-			l.longitude = float(row[4])
+			try:
+				l.latitude = float(row[3])
+				l.longitude = float(row[4])
+			except ValueError:
+				pass
 			l.address = row[5]
 			l.notes = row[6]
 			models.db.session.add(l)
@@ -257,8 +260,11 @@ def update_data():
 			l = models.User()
 			l.name = row[0]
 			l.image_url = row[1]
-			l.latitude = float(row[2])
-			l.longitude = float(row[3])
+			try:
+				l.latitude = float(row[2])
+				l.longitude = float(row[3])
+			except ValueError:
+				pass
 			l.email = row[4]
 			l.set_password(row[5])
 			l.notes = row[6]
