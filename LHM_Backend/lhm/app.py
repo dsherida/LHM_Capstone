@@ -175,7 +175,7 @@ def get_locations():
 			return math.sqrt(((x1 - x2)**2) + ((y1 - y2)**2))
 
 		if lat and long:
-			filt_point = lat, long
+			filt_point = float(lat), float(long)
 			locations.sort(key=lambda l: distance((l.latitude, l.longitude), filt_point))
 		return jsonify(locations=[v.to_json() for v in locations])
 
