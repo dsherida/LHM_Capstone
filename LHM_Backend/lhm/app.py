@@ -7,6 +7,32 @@ app = Flask(__name__)
 models.db.init_app(app)
 
 
+def perform_search():
+	query = models.Vehicle.query
+	status = request.args.get('status')
+	make = request.args.get('make')
+	model = request.args.get('model')
+	color = request.args.get('color')
+	sort = request.args.get('sort')
+	location = request.args.get('location')
+
+	if status:
+		query = query.filter_by(status=status)
+	if make:
+		query = query.filter_by(make=make)
+	if model:
+		query = query.filter_by(model=model)
+	if color:
+		query = query.filter_by(color=color)
+	if location:
+		query = query.filter_by(location_id=int(location))
+
+	if sort:
+		query.order_by(models.Vehicle.__dict__[sort])
+
+	vehicles = query.all()
+	return vehicles
+
 # User Management Handlers
 # TODO: Secure User Management Handlers with Admin Authentication
 """
@@ -42,22 +68,22 @@ def view_vehicle():
 
 @app.route('/makes')
 def view_makes():
-	vehicles = models.Vehicle.query.all()
+	vehicles = perform_search()
 	return jsonify(makes=sorted(list(set([v.make for v in vehicles]))))
 
 @app.route('/models')
 def view_models():
-	vehicles = models.Vehicle.query.all()
+	vehicles = perform_search()
 	return jsonify(models=sorted(list(set([v.model for v in vehicles]))))
 
 @app.route('/colors')
 def view_colors():
-	vehicles = models.Vehicle.query.all()
+	vehicles = perform_search()
 	return jsonify(colors=sorted(list(set([v.color for v in vehicles]))))
 
 @app.route('/years')
 def view_years():
-	vehicles = models.Vehicle.query.all()
+	vehicles = perform_search()
 	return jsonify(years=sorted(list(set([v.year for v in vehicles]))))
 
 @app.route('/user', methods=['POST', 'GET'])
@@ -108,27 +134,7 @@ def update_user(id):
 @app.route('/search', methods=['GET'])
 @requires_auth
 def search_vehicles():
-	query = models.Vehicle.query
-	status = request.args.get('status')
-	make = request.args.get('make')
-	model = request.args.get('model')
-	color = request.args.get('color')
-	sort = request.args.get('sort')
-
-	if status:
-		query = query.filter_by(status=status)
-	if make:
-		query = query.filter_by(make=make)
-	if model:
-		query = query.filter_by(model=model)
-	if color:
-		query = query.filter_by(color=color)
-
-	if sort:
-		query.order_by(models.Vehicle.__dict__[sort])
-
-	vehicles = query.all()
-
+	vehicles = perform_search()
 	return jsonify(vehicles=[v.to_json() for v in vehicles])
 
 
@@ -156,6 +162,17 @@ def get_vehicles():
 def get_locations():
 	if request.method == 'GET':
 		locations = models.Location.query.all()
+		lat, long = request.args.get('latitude'), request.args.get('longitude')
+
+		def distance(p1, p2):
+			x1, y1 = p1
+			x2, y2 = p2
+			import math
+			return math.sqrt(((x1 - x2)**2) + ((y1 - y2)**2))
+
+		if lat and long:
+			filt_point = lat, long
+			locations.sort(key=lambda l: distance((l.latitude, l.longitude), filt_point))
 		return jsonify(locations=[v.to_json() for v in locations])
 
 	location = models.Location()

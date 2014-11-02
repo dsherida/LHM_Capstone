@@ -16,6 +16,11 @@ class ModelUtils:
 		db.session.delete(self)
 		db.session.commit()
 
+users = db.Table('users',
+	db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+	db.Column('location_id', db.Integer, db.ForeignKey('location.id'))
+)
+
 
 class User(db.Model, ModelUtils):
 	id = db.Column(db.Integer, primary_key=True)
@@ -35,6 +40,7 @@ class User(db.Model, ModelUtils):
 			'image_url': self.image_url,
 			'latitude': self.latitude,
 			'longitude': self.longitude,
+			'locations': [l.id for l in self.locations],
 		}
 
 	def set_password(self, password):
@@ -53,6 +59,10 @@ class Location(db.Model, ModelUtils):
 	longitude = db.Column(db.Float)
 	address = db.Column(db.Text)
 	notes = db.Column(db.Text)
+	users = db.relationship('User', secondary=users,
+		backref=db.backref('locations', lazy='dynamic'))
+	vehicles = db.relationship('Vehicle', backref='location',
+		lazy='dynamic')
 
 	def to_json(self):
 		return {
@@ -63,6 +73,7 @@ class Location(db.Model, ModelUtils):
 			'longitude': self.longitude,
 			'address': self.address,
 			'notes': self.notes,
+			'users': [u.id for u in self.users],
 		}
 
 
@@ -77,6 +88,7 @@ class Vehicle(db.Model, ModelUtils):
 	color = db.Column(db.String(255))
 	status = db.Column(db.String(255))
 	notes = db.Column(db.Text)
+	location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
 
 	def to_json(self):
 		return {
@@ -88,4 +100,5 @@ class Vehicle(db.Model, ModelUtils):
 			'status': self.status,
 			'notes': self.notes,
 			'image': self.image or "http://lorempixel.com/640/480/transport/",
+			'location': self.location_id,
 		}
