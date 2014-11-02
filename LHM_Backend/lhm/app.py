@@ -212,9 +212,66 @@ def update_data():
 	models.db.create_all()
 	import os, csv
 	FILE_PATH = os.path.abspath(os.path.dirname(__file__))
+	vehicles = models.Vehicle.query.all()
+
+	locations = models.Location.query.all()
+	for l in locations:
+		models.db.session.delete(l)
+	models.db.session.commit()
+
+	all_locations = []
+
+	with open(os.path.join(FILE_PATH, "../sample_locations.csv")) as csvfile:
+		csvreader = csv.reader(csvfile)
+		first = True
+		for row in csvreader:
+			if first:
+				first = False
+				continue
+
+			l = models.Location()
+			l.name = row[0]
+			l.type = row[1]
+			l.zipcode = row[2]
+			l.latitude = float(row[3])
+			l.longitude = float(row[4])
+			l.address = row[5]
+			l.notes = row[6]
+			models.db.session.add(l)
+			all_locations.append(l)
+	models.db.session.commit()
+
+	users = models.User.query.all()
+	for u in users:
+		models.db.session.delete(u)
+	models.db.session.commit()
+
+	with open(os.path.join(FILE_PATH, "../sample_users.csv")) as csvfile:
+		csvreader = csv.reader(csvfile)
+		first = True
+		for row in csvreader:
+			if first:
+				first = False
+				continue
+
+			l = models.User()
+			l.name = row[0]
+			l.image_url = row[1]
+			l.latitude = float(row[2])
+			l.longitude = float(row[3])
+			l.email = row[4]
+			l.set_password(row[5])
+			l.notes = row[6]
+			for i in [int(s) for s in row[7].split()]:
+				all_locations[i - 1].users.append(l)
+			models.db.session.add(l)
+	for l in all_locations:
+		models.db.session.add(l)
+	models.db.session.commit()
+
 	csvfile = open(os.path.join(FILE_PATH, "../sample_data.csv"))
 	csvreader = csv.reader(csvfile)
-	vehicles = models.Vehicle.query.all()
+
 	for v in vehicles:
 		models.db.session.delete(v)
 	first = True
