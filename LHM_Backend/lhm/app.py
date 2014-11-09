@@ -1,10 +1,16 @@
 from flask import Flask, jsonify, request, session, render_template, redirect, abort
 import models
+from models import Vehicle
 from jinja2 import TemplateNotFound
 from auth import requires_auth, check_auth
+from sqlalchemy import func
 
 app = Flask(__name__)
 models.db.init_app(app)
+
+
+def lowercase_filter(query, x, y):
+	return query.filter(func.lower(x) == func.lower(y))
 
 
 def perform_search():
@@ -15,17 +21,20 @@ def perform_search():
 	color = request.args.get('color')
 	sort = request.args.get('sort')
 	location = request.args.get('location')
+	vin = request.args.get('vin')
 
+	if vin:
+		query = query.filter_by(vin=vin)
 	if status:
-		query = query.filter_by(status=status)
+		query = lowercase_filter(query, Vehicle.status, status)
 	if make:
-		query = query.filter_by(make=make)
+		query = lowercase_filter(query, Vehicle.make, make)
 	if model:
-		query = query.filter_by(model=model)
+		query = lowercase_filter(query, Vehicle.model, model)
 	if color:
-		query = query.filter_by(color=color)
+		query = lowercase_filter(query, Vehicle.color, color)
 	if location:
-		query = query.filter_by(location_id=int(location))
+		query = lowercase_filter(query, Vehicle.location, location)
 
 	if sort:
 		query.order_by(models.Vehicle.__dict__[sort])
