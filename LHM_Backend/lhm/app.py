@@ -314,8 +314,8 @@ def update_data():
 		v.status = row[5]
 		img_url = "http://cdn.lhmws.com"
 		img_path = "/photos/large/" + v.vin + "_1.jpg"
-		if url_exists(img_url, img_path):
-			v.image = img_url + img_path
+		# if url_exists(img_url, img_path):
+		v.image = img_url + img_path
 		models.db.session.add(v)
 	models.db.session.commit()
 	return "All sample data up to date!"
