@@ -219,6 +219,13 @@ def get_vehicle(vin):
 		vehicle.put()
 	return jsonify(vehicle=vehicle.to_json())
 
+def url_exists(site, path):
+	import httplib
+	conn = httplib.HTTPConnection(site)
+	conn.request('HEAD', path)
+	response = conn.getresponse()
+	conn.close()
+	return response.status == 200
 
 @app.route('/updatedata')
 def update_data():
@@ -305,6 +312,10 @@ def update_data():
 		v.model = row[3]
 		v.color = row[4]
 		v.status = row[5]
+		img_url = "http://cdn.lhmws.com"
+		img_path = "/photos/large/" + v.vin + "_1.jpg"
+		if url_exists(img_url, img_path):
+			v.image = img_url + img_path
 		models.db.session.add(v)
 	models.db.session.commit()
 	return "All sample data up to date!"
