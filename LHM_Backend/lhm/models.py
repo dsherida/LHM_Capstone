@@ -64,7 +64,7 @@ class Location(db.Model, ModelUtils):
 		backref=db.backref('locations', lazy='dynamic'))
 	vehicles = db.relationship('Vehicle', backref='location',
 		lazy='dynamic', foreign_keys='Vehicle.location_id')
-	sale_vehicles = db.relationship('Vehicle', backref='location',
+	sale_vehicles = db.relationship('Vehicle', backref='tent',
 		lazy='dynamic', foreign_keys='Vehicle.tent_sale')
 
 	def to_json(self):
