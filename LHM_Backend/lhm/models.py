@@ -63,7 +63,9 @@ class Location(db.Model, ModelUtils):
 	users = db.relationship('User', secondary=users,
 		backref=db.backref('locations', lazy='dynamic'))
 	vehicles = db.relationship('Vehicle', backref='location',
-		lazy='dynamic', foreign_keys=['location_id', 'tent_sale'])
+		lazy='dynamic', foreign_keys='Vehicle.location_id')
+	sale_vehicles = db.relationship('Vehicle', backref='location',
+		lazy='dynamic', foreign_keys='Vehicle.tent_sale')
 
 	def to_json(self):
 		return {
