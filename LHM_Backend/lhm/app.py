@@ -22,7 +22,10 @@ def perform_search():
 	sort = request.args.get('sort')
 	location = request.args.get('location')
 	vin = request.args.get('vin')
+	tent_sale = request.args.get('tent_sale')
 
+	if tent_sale:
+		query = query.filter_by(tent_sale=bool(tent_sale == '1' or tent_sale.lower() == "true"))
 	if vin:
 		query = query.filter_by(vin=vin)
 	if status:
@@ -160,6 +163,9 @@ def get_vehicles():
 		return jsonify(vehicles=[v.to_json() for v in vehicles])
 
 	vehicle = models.Vehicle()
+	tent_sale = request.form.get('tent_sale', None)
+	if not tent_sale is None:
+		vehicle.tent_sale = bool(tent_sale == '1' or tent_sale.lower() == "true")
 	vehicle.status = request.form.get('status')
 	vehicle.make = request.form.get('make')
 	vehicle.model = request.form.get('model')
@@ -211,6 +217,9 @@ def get_vehicle(vin):
 	if not vehicle:
 		abort(404)
 	if request.method == 'POST':
+		tent_sale = request.form.get('tent_sale', None)
+		if not tent_sale is None:
+			vehicle.tent_sale = bool(tent_sale == '1' or tent_sale.lower() == "true")
 		vehicle.status = request.form.get('status') or vehicle.status
 		vehicle.make = request.form.get('make') or vehicle.make
 		vehicle.model = request.form.get('model') or vehicle.model
