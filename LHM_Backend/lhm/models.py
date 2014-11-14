@@ -91,7 +91,7 @@ class Vehicle(db.Model, ModelUtils):
 	status = db.Column(db.String(255))
 	notes = db.Column(db.Text)
 	location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
-	tent_sale = db.Column(db.Boolean)
+	tent_sale = db.Column(db.Integer, db.ForeignKey('location.id'))
 
 	def to_json(self):
 		return {
@@ -105,5 +105,5 @@ class Vehicle(db.Model, ModelUtils):
 			'notes': self.notes,
 			'image': self.image or "http://lorempixel.com/640/480/transport/",
 			'location': self.location_id,
-			'tent_sale': self.tent_sale or False,
+			'tent_sale': self.tent_sale,
 		}

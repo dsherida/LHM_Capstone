@@ -25,7 +25,7 @@ def perform_search():
 	tent_sale = request.args.get('tent_sale')
 
 	if tent_sale:
-		query = query.filter_by(tent_sale=bool(tent_sale == '1' or tent_sale.lower() == "true"))
+		query = query.filter_by(tent_sale=int(tent_sale))
 	if vin:
 		query = query.filter_by(vin=vin)
 	if status:
@@ -37,7 +37,7 @@ def perform_search():
 	if color:
 		query = lowercase_filter(query, Vehicle.color, color)
 	if location:
-		query = lowercase_filter(query, Vehicle.location, location)
+		query = query.filter_by(location=int(location))
 
 	if sort:
 		query.order_by(models.Vehicle.__dict__[sort])
@@ -165,7 +165,10 @@ def get_vehicles():
 	vehicle = models.Vehicle()
 	tent_sale = request.form.get('tent_sale', None)
 	if not tent_sale is None:
-		vehicle.tent_sale = bool(tent_sale == '1' or tent_sale.lower() == "true")
+		try:
+			vehicle.tent_sale = int(tent_sale)
+		except TypeError:
+			vehicle.tent_sale = None
 	vehicle.status = request.form.get('status')
 	vehicle.make = request.form.get('make')
 	vehicle.model = request.form.get('model')
@@ -219,7 +222,10 @@ def get_vehicle(vin):
 	if request.method == 'POST':
 		tent_sale = request.form.get('tent_sale', None)
 		if not tent_sale is None:
-			vehicle.tent_sale = bool(tent_sale == '1' or tent_sale.lower() == "true")
+			try:
+				vehicle.tent_sale = int(tent_sale)
+			except TypeError:
+				vehicle.tent_sale = None
 		vehicle.status = request.form.get('status') or vehicle.status
 		vehicle.make = request.form.get('make') or vehicle.make
 		vehicle.model = request.form.get('model') or vehicle.model
