@@ -238,6 +238,7 @@ def url_exists(site, path):
 
 @app.route('/updatedata')
 def update_data():
+	models.db.drop_all()
 	models.db.create_all()
 	import os, csv
 	FILE_PATH = os.path.abspath(os.path.dirname(__file__))
