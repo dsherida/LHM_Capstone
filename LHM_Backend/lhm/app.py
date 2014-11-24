@@ -23,6 +23,7 @@ def perform_search():
 	location = request.args.get('location')
 	vin = request.args.get('vin')
 	tent_sale = request.args.get('tent_sale')
+	year = request.args.get('year')
 
 	if tent_sale:
 		query = query.filter_by(tent_sale=int(tent_sale))
@@ -38,6 +39,8 @@ def perform_search():
 		query = lowercase_filter(query, Vehicle.color, color)
 	if location:
 		query = query.filter_by(location=int(location))
+	if year:
+		query = query.filter_by(year=year)
 
 	if sort:
 		query.order_by(models.Vehicle.__dict__[sort])
